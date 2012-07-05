@@ -7,96 +7,34 @@
 .Timer {font-size: 500px; font-weight: bold; text-align: center;}
 .Warning {color: red; }
 #controls { position:absolute; bottom:0; }
+#PageContainer {position: absolute; top: 0; right: 0; bottom: 0; left: 0;}
 </style>
 </head>
 <body>
-<div id="countdownDisplay" class="Timer"></div>
-<div id = "controls">
-  <input type="button" id="startTimer" value="Start" />
-    <input type="button" id="stopTimer" value="Pause" />
-      <!--<input type="button" id="resetTimer" value="Reset" />-->
-      </div>
-      <script type="text/javascript"
-      src="jquery-1.7.2.js"></script>
-      <script type="text/javascript">
-$("body").addClass("KeepTalking");
-var totalMinutes = 5;
+	<div id="PageContainer">
+		<div id="countdownDisplay" class="Timer"></div>
+		<div id = "controls">
+		  <input type="button" id="startTimer" value="Start" />
+		  <input type="button" id="stopTimer" value="Pause" />
+			  <input type="button" id="resetTimer" value="Reset" />
+		</div>
+		<script type="text/javascript" src="./lib/jquery-1.7.2.js"></script>
+		<script type="text/javascript" src="./src/timer.js"></script>
+		<script type="text/javascript">
+	$("#PageContainer").addClass("KeepTalking");
+	var totalMinutes = .5;
+	var timer = new Timer( totalMinutes );
 
-var second = 1000;
-var minute = (second * 60);
-var endCount = minute * totalMinutes + second;
-var remainingTime = endCount - second;
-var warningInterval;
-var secondsInterval;
-var warningTimeout;
-var endTimeout;
-var minuteTimeout;
-
-var pad = function (number, length) {
-  var str = number.toString();
-  while (str.length < length) {str = '0' + str; }
-  return str;
-};
-
-var displayTime = function () {
-  var timesUp, minutesLeft, msLeft, secondsLeft;
-  timesUp = false;
-  if (remainingTime < 0) { timesUp = true; }
-  minutesLeft = Math.floor(Math.abs(remainingTime) / minute);
-  msLeft = Math.abs(remainingTime) - (minutesLeft * minute);
-  secondsLeft = Math.floor(msLeft / second);
-  if (timesUp) {
-    minutesLeft = "-" + minutesLeft;
-  }
-  $("#countdownDisplay").text(minutesLeft + ":" + pad(secondsLeft, 2));
-};
-
-var tick = function () {
-  displayTime();
-  remainingTime = remainingTime - second;
-};
-
-var setWarning = function () {
-  var countdown = $("#countdownDisplay");
-  countdown.addClass("Warning");
-  warningInterval = window.setInterval(function () {countdown.toggle(); }, 250);
-};
-
-var setEndOfTime = function () {
-  $("body").removeClass("OneMinuteLeft").addClass("TimeOut");
-  window.clearInterval(warningInterval);
-  $("#countdownDisplay").removeClass("Warning").show();
-};
-
-var startTimer = function () {
-  //var elapsedCount = endCount - remainingTime;		
-  secondsInterval = window.setInterval(function () {tick(); }, second);
-  warningTimeout =  window.setTimeout(function () {
-  setWarning(); 
-  }, remainingTime + second - second * 10 );
-  endTimeout = window.setTimeout(function () {setEndOfTime(); }, remainingTime + second);
-  minuteTimeout =  window.setTimeout(function () {$("body").removeClass("KeepTalking").addClass("OneMinuteLeft"); }, remainingTime + second - minute);
-};
-
-var pauseTimer = function () {
-  window.clearInterval(secondsInterval);
-  window.clearTimeout(warningTimeout);
-  window.clearTimeout(endTimeout);
-  window.clearTimeout(minuteTimeout);
-  window.clearInterval(warningInterval);
-  var countdown = $("#countdownDisplay");
-  countdown.show();
-};
-
-
-$('#startTimer').click(function () {startTimer(); });
-$('#stopTimer').click(function () {pauseTimer(); });
-$('#resetTimer').click(function () {
-  pauseTimer();
-  remainingTime = endCount - second;
-  displayTime();
-  $("body").removeClass().addClass("KeepTalking");
-});
-       </script>
+	$('#startTimer').click(function () { timer.startTimer(); });
+	$('#stopTimer').click(function () { timer.pauseTimer(); });
+	$('#resetTimer').click(function () {
+	  timer.pauseTimer();
+	  timer.clearTimerHooks();
+	  timer.remainingTime = timer.endCount;
+	  timer.displayTime();
+	  $("#PageContainer").removeClass().addClass("KeepTalking");
+	});
+		</script>
+    </div>	   
        </body>
        </html>
