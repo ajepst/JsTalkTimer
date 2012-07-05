@@ -1,16 +1,18 @@
 function Timer(totalMinutes) {
-this.totalMinutes = totalMinutes;
+  this.second = 1000;
+  this.minute = (this.second * 60);
 
-this.second = 1000;
-this.minute = (this.second * 60);
-this.endCount = this.minute * this.totalMinutes;
-this.remainingTime = this.endCount;
-this.warningInterval;
-this.secondsInterval;
-this.warningTimeout;
-this.endTimeout;
-this.minuteTimeout;
-this.idee=Math.floor(Math.random()*10000)
+  this.totalMinutes = totalMinutes;
+  this.warningTime = (arguments[1] !== undefined) ? (arguments[1] * this.minute) : (this.minute);
+  this.finalWarning = (arguments[2] !== undefined) ? (arguments[2] * this.second) : (this.second * 10);
+
+  this.endCount = this.minute * this.totalMinutes;
+  this.remainingTime = this.endCount;
+  this.warningInterval;
+  this.secondsInterval;
+  this.warningTimeout;
+  this.endTimeout;
+  this.minuteTimeout;
 }
 
 Timer.prototype.displayTime = function () {
@@ -30,9 +32,9 @@ Timer.prototype.startTimer = function () {
   var thisTimer = this;
   this.clearTimerHooks();
   this.secondsInterval = window.setInterval(function () { thisTimer.tick(); }, this.second);
-  this.warningTimeout =  window.setTimeout(function () {  thisTimer.setWarning(); }, this.remainingTime - this.second * 10 );
+  this.warningTimeout =  window.setTimeout(function () {  thisTimer.setWarning(); }, this.remainingTime - this.finalWarning );
   this.endTimeout = window.setTimeout(function () { thisTimer.setEndOfTime(); }, this.remainingTime );
-  this.minuteTimeout =  window.setTimeout(function () { thisTimer.setMinuteWarning(); }, this.remainingTime - this.minute );
+  this.minuteTimeout =  window.setTimeout(function () { thisTimer.setMinuteWarning(); }, this.remainingTime - this.warningTime );
   this.displayTime();
   };
 
