@@ -285,7 +285,7 @@ describe("Timer that is -1:00", function() {
   var timer;
   beforeEach(function() {
     loadFixtures('HtmlFixture.html');
-    timer = new Timer();
+    timer = new Timer(5);
 	jasmine.Clock.useMock();
 	timer.startTimer();
 	jasmine.Clock.tick(timer.minute*5 + timer.minute);
