@@ -1,11 +1,10 @@
-//jasmine.getFixtures().fixturesPath = '/spec/HtmlFixture.html';.
-
+//jasmine jasmine.getFixtures().fixturesPath = '/spec/HtmlFixture.html';
 
 describe("Timer that is not started", function() {
   var timer;
 
   beforeEach(function() {
-    timer = new Timer();
+    timer = new Timer(5);
 	loadFixtures('HtmlFixture.html');
   });
   
@@ -27,7 +26,7 @@ describe("Timer that is a half second", function() {
   beforeEach(function() {
     loadFixtures('HtmlFixture.html');
     jasmine.Clock.useMock();
-    timer = new Timer();
+    timer = new Timer(5);
 	timer.startTimer();
 	jasmine.Clock.tick(500);
   });
@@ -54,7 +53,7 @@ describe("Timer that is started one second", function() {
   var timer;
   beforeEach(function() {
     loadFixtures('HtmlFixture.html');
-    timer = new Timer();
+    timer = new Timer(5);
 	jasmine.Clock.useMock();
 	timer.startTimer();
 	jasmine.Clock.tick(1200);
@@ -78,7 +77,7 @@ describe("Timer that is 3:59", function() {
   var timer;
   beforeEach(function() {
     loadFixtures('HtmlFixture.html');
-    timer = new Timer();
+    timer = new Timer(5);
 	jasmine.Clock.useMock();
 	timer.startTimer();
 	jasmine.Clock.tick(timer.minute*4-timer.second);
@@ -103,7 +102,7 @@ describe("Timer that is 4:00", function() {
   var timer;
   beforeEach(function() {
     loadFixtures('HtmlFixture.html');
-    timer = new Timer();
+    timer = new Timer(5);
 	jasmine.Clock.useMock();
 	timer.startTimer();
 	jasmine.Clock.tick(timer.minute*4);
@@ -131,7 +130,7 @@ describe("Timer that is 0:11", function() {
   var timer;
   beforeEach(function() {
     loadFixtures('HtmlFixture.html');
-    timer = new Timer();
+    timer = new Timer(5);
 	jasmine.Clock.useMock();
 	timer.startTimer();
 	jasmine.Clock.tick(timer.minute*4+timer.second*50-timer.second);
@@ -162,7 +161,7 @@ describe("Timer that is 0:10", function() {
   var timer;
   beforeEach(function() {
     loadFixtures('HtmlFixture.html');
-    timer = new Timer();
+    timer = new Timer(5);
 	jasmine.Clock.useMock();
 	timer.startTimer();
 	jasmine.Clock.tick(timer.minute*4+timer.second*50+300);
@@ -193,7 +192,7 @@ describe("Timer that is 0:01", function() {
   var timer;
   beforeEach(function() {
     loadFixtures('HtmlFixture.html');
-    timer = new Timer();
+    timer = new Timer(5);
 	jasmine.Clock.useMock();
 	timer.startTimer();
 	jasmine.Clock.tick(timer.minute*5-timer.second);
@@ -224,7 +223,7 @@ describe("Timer that is 0:00", function() {
   var timer;
   beforeEach(function() {
     loadFixtures('HtmlFixture.html');
-    timer = new Timer();
+    timer = new Timer(5);
 	jasmine.Clock.useMock();
 	timer.startTimer();
 	jasmine.Clock.tick(timer.minute*5);
@@ -255,7 +254,7 @@ describe("Timer that is -0:01", function() {
   var timer;
   beforeEach(function() {
     loadFixtures('HtmlFixture.html');
-    timer = new Timer();
+    timer = new Timer(5);
 	jasmine.Clock.useMock();
 	timer.startTimer();
 	jasmine.Clock.tick(timer.minute*5 + timer.second);
