@@ -17,24 +17,27 @@
 		  <input type="button" id="startTimer" value="Start" />
 		  <input type="button" id="stopTimer" value="Pause" />
 			  <input type="button" id="resetTimer" value="Reset" />
-		</div>
-		<script type="text/javascript" src="./lib/jquery-1.7.2.js"></script>
-		<script type="text/javascript" src="./src/timer.js"></script>
-		<script type="text/javascript">
-	$("#PageContainer").addClass("KeepTalking");
-	var totalMinutes = 5;
-	var timer = new Timer( totalMinutes );
+	</div>
+<script type="text/javascript" src="./lib/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="./src/timer.js"></script>
+<script type="text/javascript">
+(function($) {
+  $("#PageContainer").addClass("KeepTalking");
 
-	$('#startTimer').click(function () { timer.startTimer(); });
-	$('#stopTimer').click(function () { timer.pauseTimer(); });
-	$('#resetTimer').click(function () {
-	  timer.pauseTimer();
-	  timer.clearTimerHooks();
-	  timer.remainingTime = timer.endCount;
-	  timer.displayTime();
-	  $("#PageContainer").removeClass().addClass("KeepTalking");
-	});
-		</script>
-    </div>	   
-       </body>
-       </html>
+  var totalMinutes = 5;
+  var timer = new Timer( totalMinutes );
+
+  $('#startTimer').click(function () { timer.startTimer(); });
+  $('#stopTimer').click(function () { timer.pauseTimer(); });
+  $('#resetTimer').click(function () {
+    timer.pauseTimer();
+    timer.clearTimerHooks();
+    timer.remainingTime = timer.endCount;
+    timer.displayTime();
+    $("#PageContainer").removeClass().addClass("KeepTalking");
+  });
+})(jQuery);
+</script>
+</div>	   
+</body>
+</html>
