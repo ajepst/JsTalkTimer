@@ -29,13 +29,7 @@
 
   $('#startTimer').click(function () { timer.startTimer(); });
   $('#stopTimer').click(function () { timer.pauseTimer(); });
-  $('#resetTimer').click(function () {
-    timer.pauseTimer();
-    timer.clearTimerHooks();
-    timer.remainingTime = timer.endCount;
-    timer.displayTime();
-    $("#PageContainer").removeClass().addClass("KeepTalking");
-  });
+  $('#resetTimer').click(function () { timer.resetTimer(); });
 })(jQuery);
 </script>
 </div>	   

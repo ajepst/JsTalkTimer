@@ -26,15 +26,12 @@ describe("Timer that is a half second", function() {
   beforeEach(function() {
     loadFixtures('HtmlFixture.html');
     jasmine.Clock.useMock();
+    jasmine.Clock.reset();
     timer = new Timer(5);
 	timer.startTimer();
 	jasmine.Clock.tick(500);
   });
   
-  afterEach(function() {
-    timer.clearTimerHooks();
-  });
- 
   it("should have the full time left", function() {
     expect(timer.remainingTime).toBe(timer.endCount);
   });
@@ -55,14 +52,11 @@ describe("Timer that is started one second", function() {
     loadFixtures('HtmlFixture.html');
     timer = new Timer(5);
 	jasmine.Clock.useMock();
+        jasmine.Clock.reset();
 	timer.startTimer();
 	jasmine.Clock.tick(1200);
   });
   
-  afterEach(function() {
-    timer.clearTimerHooks();
-  });
- 
   it("should have one second take off", function() {
     expect(timer.remainingTime).toBe(timer.endCount - timer.second);
   });
@@ -79,12 +73,9 @@ describe("Timer that is 3:59", function() {
     loadFixtures('HtmlFixture.html');
     timer = new Timer(5);
 	jasmine.Clock.useMock();
+        jasmine.Clock.reset();
 	timer.startTimer();
 	jasmine.Clock.tick(timer.minute*4-timer.second);
-  });
-  
-  afterEach(function() {
-    timer.clearTimerHooks();
   });
   
   it("should display 1:01", function() {
@@ -104,12 +95,9 @@ describe("Timer that is 4:00", function() {
     loadFixtures('HtmlFixture.html');
     timer = new Timer(5);
 	jasmine.Clock.useMock();
+        jasmine.Clock.reset();
 	timer.startTimer();
 	jasmine.Clock.tick(timer.minute*4);
-  });
-  
-  afterEach(function() {
-    timer.clearTimerHooks();
   });
   
   it("should display 1:00", function() {
@@ -132,12 +120,9 @@ describe("Timer that is 0:11", function() {
     loadFixtures('HtmlFixture.html');
     timer = new Timer(5);
 	jasmine.Clock.useMock();
+        jasmine.Clock.reset();
 	timer.startTimer();
 	jasmine.Clock.tick(timer.minute*4+timer.second*50-timer.second);
-  });
-  
-  afterEach(function() {
-    timer.clearTimerHooks();
   });
   
   it("should display 0:11", function() {
@@ -163,12 +148,9 @@ describe("Timer that is 0:10", function() {
     loadFixtures('HtmlFixture.html');
     timer = new Timer(5);
 	jasmine.Clock.useMock();
+        jasmine.Clock.reset();
 	timer.startTimer();
 	jasmine.Clock.tick(timer.minute*4+timer.second*50+300);
-  });
-  
-  afterEach(function() {
-    timer.clearTimerHooks();
   });
   
   it("should display 0:10", function() {
@@ -194,12 +176,9 @@ describe("Timer that is 0:01", function() {
     loadFixtures('HtmlFixture.html');
     timer = new Timer(5);
 	jasmine.Clock.useMock();
+        jasmine.Clock.reset();
 	timer.startTimer();
 	jasmine.Clock.tick(timer.minute*5-timer.second);
-  });
-  
-  afterEach(function() {
-    timer.clearTimerHooks();
   });
   
   it("should display 0:01", function() {
@@ -225,12 +204,9 @@ describe("Timer that is 0:00", function() {
     loadFixtures('HtmlFixture.html');
     timer = new Timer(5);
 	jasmine.Clock.useMock();
+        jasmine.Clock.reset();
 	timer.startTimer();
 	jasmine.Clock.tick(timer.minute*5);
-  });
-  
-  afterEach(function() {
-    timer.clearTimerHooks();
   });
   
   it("should display 0:00", function() {
@@ -256,12 +232,9 @@ describe("Timer that is -0:01", function() {
     loadFixtures('HtmlFixture.html');
     timer = new Timer(5);
 	jasmine.Clock.useMock();
+        jasmine.Clock.reset();
 	timer.startTimer();
 	jasmine.Clock.tick(timer.minute*5 + timer.second);
-  });
-  
-  afterEach(function() {
-    timer.clearTimerHooks();
   });
   
   it("should display -0:01", function() {
@@ -287,13 +260,11 @@ describe("Timer that is -1:00", function() {
     loadFixtures('HtmlFixture.html');
     timer = new Timer(5);
 	jasmine.Clock.useMock();
+        jasmine.Clock.reset();
 	timer.startTimer();
 	jasmine.Clock.tick(timer.minute*5 + timer.minute);
   });
   
-  afterEach(function() {
-    timer.clearTimerHooks();
-  });
   
   it("should display -1:00", function() {
     expect($("#countdownDisplay")).toHaveText('-1:00');

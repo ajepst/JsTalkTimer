@@ -27,7 +27,7 @@ Timer.prototype = function ($) {
 
   var startTimer = function () {
     var thisTimer = this;
-    this.clearTimerHooks();
+    clearTimerHooks(this);
     this.secondsInterval = window.setInterval(function () { tick(thisTimer); }, this.second);
     this.warningTimeout =  window.setTimeout(function () {  setWarning(thisTimer); }, this.remainingTime - this.finalWarning );
     this.endTimeout = window.setTimeout(function () { setEndOfTime(thisTimer); }, this.remainingTime );
@@ -58,18 +58,25 @@ Timer.prototype = function ($) {
   };
 
 
-  var pauseTimer = function (thisTimer) {
-    thisTimer.clearTimerHooks();
+  var pauseTimer = function () {
+    clearTimerHooks(this);
     var countdown = $("#countdownDisplay");
     countdown.show();
   };
 
-  var clearTimerHooks = function() {
-    window.clearInterval(this.secondsInterval);
-    window.clearTimeout(this.warningTimeout);
-    window.clearTimeout(this.endTimeout);
-    window.clearTimeout(this.minuteTimeout);
-    window.clearInterval(this.warningInterval);
+  var resetTimer = function () {
+    this.pauseTimer();
+    this.remainingTime = this.endCount;
+    displayTime(this);
+    $("#PageContainer").removeClass().addClass("KeepTalking"); 
+  };
+
+  var clearTimerHooks = function(thisTimer) {
+    window.clearInterval(thisTimer.secondsInterval);
+    window.clearTimeout(thisTimer.warningTimeout);
+    window.clearTimeout(thisTimer.endTimeout);
+    window.clearTimeout(thisTimer.minuteTimeout);
+    window.clearInterval(thisTimer.warningInterval);
   }
 
   var pad = function (number, length) {
@@ -81,7 +88,7 @@ Timer.prototype = function ($) {
   return {
     startTimer: startTimer,
     pauseTimer: pauseTimer,
-    clearTimerHooks: clearTimerHooks
+    resetTimer: resetTimer
   };
 }(jQuery);
 
