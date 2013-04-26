@@ -92,9 +92,19 @@ Timer.prototype = function ($) {
   };
 }(jQuery);
 
+var sizeTime = function() {
+  var foo = $(window).width();
+  $("#countdownDisplay").css('font-size', foo/2);
+}
+$(document).ready(sizeTime);
 
+$(window).resize(sizeTime);
 
-
-
-
-
+$("#buttonHoverOverlay").hover(
+  function () {
+    $("#controls").hide();
+  }, 
+  function () {
+    $("#controls").show();
+  }
+);
