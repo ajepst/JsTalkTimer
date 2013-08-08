@@ -1,16 +1,19 @@
 var Timer = function (totalMinutes) {
   this.second = 1000;
-  this.totalMinutes = totalMinutes;
   this.minute = (this.second * 60);
 
   this.warningTime = (arguments[1] !== undefined) ? (arguments[1] * this.minute) : (this.minute);
   this.finalWarning = (arguments[2] !== undefined) ? (arguments[2] * this.second) : (this.second * 10);
-
-  this.endCount = this.minute * this.totalMinutes;
-  this.remainingTime = this.endCount;
+  this.setTimeLength(totalMinutes);
 };
 
 Timer.prototype = function ($) {
+
+  var setTimeLength = function (mins) {
+    this.totalMinutes = mins;
+    this.endCount = this.minute * this.totalMinutes;
+    this.remainingTime = this.endCount;
+  };
 
   var displayTime = function (thisTimer) {
     var timesUp, minutesLeft, msLeft, secondsLeft;
@@ -67,6 +70,7 @@ Timer.prototype = function ($) {
   var resetTimer = function () {
     this.pauseTimer();
     this.remainingTime = this.endCount;
+    //this.setTimeLength($("totalTime").value());
     displayTime(this);
     $("#PageContainer").removeClass().addClass("KeepTalking"); 
   };
@@ -88,9 +92,11 @@ Timer.prototype = function ($) {
   return {
     startTimer: startTimer,
     pauseTimer: pauseTimer,
-    resetTimer: resetTimer
+    resetTimer: resetTimer,
+    setTimeLength: setTimeLength
   };
 }(jQuery);
+
 
 var sizeTime = function() {
   var foo = $(window).width();
