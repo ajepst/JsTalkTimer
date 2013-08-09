@@ -1,5 +1,6 @@
 <html>
 <head>
+<meta charset="UTF-8">
 <style>
 .KeepTalking { background-color:green; }
 .OneMinuteLeft { background-color:yellow; }
@@ -55,6 +56,7 @@
 		  <input type="button" id="startTimer" class="timerButton" value="Start" />
 		  <input type="button" id="stopTimer" class="timerButton" value="Pause" />
 		  <input type="button" id="resetTimer" class="timerButton" value="Reset" />
+                  <input type="text" id="totalTime" placeholder="Number of minutes" />
                 </div>
 	</div>
 	<div id = "buttonHoverOverlay"></div>
@@ -64,8 +66,8 @@
 (function($) {
   $("#PageContainer").addClass("KeepTalking");
 
-  var totalMinutes = 5;
-  var timer = new Timer( totalMinutes );
+  var defaultMinutes = 5;
+  var timer = new Timer(defaultMinutes);
 
   $('#startTimer').click(function () { timer.startTimer(); });
   $('#stopTimer').click(function () { timer.pauseTimer(); });

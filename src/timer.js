@@ -10,7 +10,8 @@ var Timer = function (totalMinutes) {
 Timer.prototype = function ($) {
 
   var setTimeLength = function (mins) {
-    this.totalMinutes = mins;
+    minsNum = parseInt(mins);
+    this.totalMinutes = minsNum;
     this.endCount = this.minute * this.totalMinutes;
     this.remainingTime = this.endCount;
   };
@@ -70,7 +71,7 @@ Timer.prototype = function ($) {
   var resetTimer = function () {
     this.pauseTimer();
     this.remainingTime = this.endCount;
-    //this.setTimeLength($("totalTime").value());
+    this.setTimeLength($("#totalTime").val());
     displayTime(this);
     $("#PageContainer").removeClass().addClass("KeepTalking"); 
   };
