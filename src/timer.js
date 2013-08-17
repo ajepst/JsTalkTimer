@@ -71,7 +71,10 @@ Timer.prototype = function ($) {
   var resetTimer = function () {
     this.pauseTimer();
     this.remainingTime = this.endCount;
-    this.setTimeLength($("#totalTime").val());
+    var ttime = Number($("#totalTime").val()); 
+    if ((ttime !== NaN) && (ttime > 0)) { 
+      this.setTimeLength($("#totalTime").val());
+    } 
     displayTime(this);
     $("#PageContainer").removeClass().addClass("KeepTalking"); 
   };
@@ -94,7 +97,7 @@ Timer.prototype = function ($) {
     startTimer: startTimer,
     pauseTimer: pauseTimer,
     resetTimer: resetTimer,
-    setTimeLength: setTimeLength
+    setTimeLength: setTimeLength,
   };
 }(jQuery);
 
